@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Leave your Rating</h1>
+    <form id="rating">
+        <input type="text" id="movie-title" placeholder="Enter movie title">
+        <input type="text" id="user-id" placeholder="Enter your ID">
+        <input type="number" id="rating" min="1" max="10" placeholder="Rate (1-10)">
+        <textarea id="review" placeholder="Enter your review"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="submitted-ratings"></div>
+
+  
+    <style>
+         form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid black;
+            padding: 20px;
+            width: 250px;
+            margin-left:40%;
+            margin-top: 15%;
+        }
+        form input{
+            margin-bottom: 10px;
+
+        }
+        button{
+            margin-top: 10px;
+            color: #b14848;
+            background-color: #fff;
+        }
+        h1{
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Rating</title>
+</head>
+<body>
+    <header>
+        <h1>Movie Rating Platform</h1>
+    </header>
+    <main>
+        <section class="search-bar">
+            <input type="text" id="search-input" placeholder="Search for a movie...">
+            <button id="search-button">Search</button>
+        </section>
+        <section class="search-results">
+            
+        </section>
+    </main>
+    <br>
+    <div class="movie-container">
+        
+        <br>
+        <div class="movie">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3YKw6n-RDgqyFy69GSuuiue2qkkByXQLJLg&s" width="180" height="250" alt="Black Panther">
+            <a href="form.html" id="movie-title"><h2>Black Panther</h2></a>
+        </div>
+        <div class="movie">
+            <img src="https://i.pinimg.com/564x/72/f2/29/72f229badd98e1ad269d0260f5ef92fe.jpg" width="180" height="250" alt="Thor">
+            <h2><a href="form.html">Thor</a></h2>
+        </div>
+        <div class="movie">
+            <img src="https://i.pinimg.com/564x/46/37/db/4637dbeccdf457d9086f4e19e3737863.jpg" width="180" height="250" alt="Leo">
+            <h2><a href="form.html">Leo</a></h2>
+        </div>
+        </div>
+    </div>
+    <style>
+       
+        .movie-container {
+            display: flex;
+            flex-wrap: nowrap; /* Prevent wrapping to multiple rows */
+            overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+            white-space: nowrap;
+            position: relative;
+        }
+        .movie {
+            margin-right: 10px; /* Space between movies */
+            display: inline-block;
+        }
+        .movie img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+    </style>
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const searchResultsContainer = document.getElementById('search-results');
+        const movieContainer = document.getElementById('movie-container');
+    
+        searchButton.addEventListener('click', async () => {
+            const searchQuery = searchInput.value.trim();
+            if (searchQuery) {
+                try {
+                    const response = await fetch(`https://www.omdbapi.com/?s=${searchQuery}&apikey=YOUR_API_KEY`);
+                    const data = await response.json();
+                    const searchResults = data.Search;
+                    displaySearchResults(searchResults);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        });
+    
+        movieContainer.addEventListener('click', (event) => {
+            if (event.target.tagName === 'H2' || event.target.tagName === 'A') {
+                const movieTitle = event.target.textContent;
+                searchInput.value = movieTitle;
+                searchButton.click();
+            }
+        });
+    
+        function displaySearchResults(searchResults) {
+            searchResultsContainer.innerHTML = '';
+            searchResults.forEach((movie) => {
+                const movieHTML = `
+                    <div class="movie">
+                        <img src="${movie.Poster}" alt="${movie.Title}">
+                        <h2>${movie.Title}</h2>
+                        
+                    </div>
+                `;
+                searchResultsContainer.innerHTML += movieHTML;
+            });
+        }
+    </script>
+</body>
+</html>
